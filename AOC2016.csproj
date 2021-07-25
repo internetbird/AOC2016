@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Logic\" />
     <Folder Include="InputFiles\" />
-    <Folder Include="PuzzleSolvers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="InputFiles\day1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
