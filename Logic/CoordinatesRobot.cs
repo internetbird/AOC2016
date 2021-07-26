@@ -54,7 +54,7 @@ namespace AOC2016.Models
             return $"{x_coordinate},{y_coordinate}";
         }
 
-        private void Turn(Side sideToTurn)
+        public void Turn(Side sideToTurn)
         {
             if (sideToTurn == Side.Right)
             {
@@ -95,7 +95,7 @@ namespace AOC2016.Models
             }
         }
 
-        private void Walk(int blocksToWalk)
+        public void Walk(int blocksToWalk)
         {
             switch(_faceDirection)
             {

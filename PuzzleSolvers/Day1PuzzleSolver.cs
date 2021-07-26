@@ -33,22 +33,29 @@ namespace AOC2016.PuzzleSolvers
             var instructionBuilder = new WalkInstructionBuilder();
             List<WalkInstruction> instructions = instructionBuilder.Build(inputText);
 
-            var visitedCoordinates = new List<string>();
+            var visitedCoordinates = new List<string> { "0,0" };
             var robot = new CoordinatesRobot();
 
             foreach (WalkInstruction instruction in instructions)
             {
-                robot.FollowInstruction(instruction);
+                robot.Turn(instruction.SideToTurn);
 
-                var coordinateString = robot.GetCoordinateString();
-
-                if (!visitedCoordinates.Contains(coordinateString))
+                while(instruction.BlocksToWalk > 0)
                 {
-                    visitedCoordinates.Add(coordinateString);
+                    robot.Walk(1);
+                    instruction.BlocksToWalk--;
 
-                } else
-                {
-                    return robot.GetTaxiCabDistance().ToString();
+                    var coordinateString = robot.GetCoordinateString();
+
+                    if (!visitedCoordinates.Contains(coordinateString))
+                    {
+                        visitedCoordinates.Add(coordinateString);
+
+                    }
+                    else
+                    {
+                        return robot.GetTaxiCabDistance().ToString();
+                    }
                 }
             }
 
