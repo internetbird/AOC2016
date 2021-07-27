@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AOC2016.Logic
 {
-    public class Keypad
+    public class Keypad : IKeypad
     {
         private int[,] Keys;
         private int _currRowIndex;

@@ -25,7 +25,7 @@ namespace AOC2016.PuzzleSolvers
             return bathroomCode;
         }
 
-        private void ExecuteLineInstructions(string line, Keypad keypad)
+        private void ExecuteLineInstructions(string line, IKeypad keypad)
         {
             for (int i = 0; i < line.Length; i++)
             {
@@ -51,7 +51,18 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            var keypad = new AdvancedKeypad();
+            var bathroomCode = string.Empty;
+
+            string[] inputLines = InputFilesHelper.GetInputFileLines("day2.txt");
+
+            foreach (string line in inputLines)
+            {
+                ExecuteLineInstructions(line, keypad);
+                bathroomCode += keypad.GetCurrentKey();
+            }
+
+            return bathroomCode;
         }
     }
 }
