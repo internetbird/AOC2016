@@ -34,13 +34,61 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            string[] inputLines = InputFilesHelper.GetInputFileLines("day4.txt");
+            var builder = new RoomDataBuilder();
+
+            List<RoomData> roomData = builder.Build(inputLines);
+
+            foreach (RoomData data in roomData)
+            {
+                if (IsNorthPoleRoomData(data))
+                {
+                    return data.SectorId.ToString();
+                }
+            }
+
+
+            return string.Empty;
+        }
+
+        private bool IsNorthPoleRoomData(RoomData data)
+        {
+
+            var decipheredName = string.Empty;
+
+            for (int i = 0; i < data.EncryptedName.Length; i++)
+            {
+                decipheredName += DecipherChar(data.EncryptedName[i], data.SectorId);
+            }
+
+            Console.WriteLine(decipheredName);
+
+            if (decipheredName.Contains("north"))
+            {
+                return true;
+            }
+
+            return false;
+            
+        }
+
+        private string DecipherChar(char charToDecypher, int shiftCipher)
+        {
+
+            if (charToDecypher == '-')
+            {
+                return " ";
+            }
+
+            int charOffset = (charToDecypher - 'a' + shiftCipher) % ('z' - 'a' + 1);
+            char decipheredChar = (char)('a' + charOffset);
+
+            return decipheredChar.ToString();
         }
 
         private bool IsRealRoomData(RoomData data)
         {
             Dictionary<char, int> letterDictionary = BuildLetterCountDictionary(data.EncryptedName);
-
 
             char[] top5Letters = letterDictionary.OrderByDescending(keyVal => keyVal.Value)
                                  .ThenBy(keyVal => keyVal.Key).Take(5)
