@@ -15,7 +15,7 @@ namespace AOC2016.PuzzleSolvers
             var password = string.Empty;
             int postfixIndex = 0;
 
-            while(password.Length < 8)
+            while (password.Length < 8)
             {
                 string md5Hash = CryptographyHelper.CreateMD5Hash(PuzzleInput + postfixIndex);
                 if (md5Hash.StartsWith("00000"))
@@ -31,7 +31,37 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            var password = "********";
+            int postfixIndex = 0;
+            int charsSolved = 0;
+
+            while (charsSolved < 8)
+            {
+                string md5Hash = CryptographyHelper.CreateMD5Hash(PuzzleInput + postfixIndex);
+                if (md5Hash.StartsWith("00000"))
+                {
+                    char positionChar = md5Hash[5];
+
+                    if (positionChar >= '0' && positionChar <= '7')
+                    {
+                        int position = int.Parse(positionChar.ToString());
+                        if (password[position] == '*')
+                        {
+                            var sb = new StringBuilder(password);
+                            sb[position] = md5Hash[6];
+                            password = sb.ToString();
+                            Console.WriteLine(password);
+
+                            charsSolved++;
+                        }
+
+                    }
+
+                }
+                postfixIndex++;
+            }
+
+            return password;
         }
     }
 }
