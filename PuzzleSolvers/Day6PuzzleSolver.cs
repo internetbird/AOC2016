@@ -26,7 +26,18 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            string[] inputLines = InputFilesHelper.GetInputFileLines("day6.txt");
+
+            var message = string.Empty;
+
+            var calculator = new LetterFrequencyCalculator();
+
+            for (int i = 0; i < inputLines[0].Length; i++)
+            {
+                message += calculator.GetLeastFrequestCharAtPoisition(inputLines, i);
+            }
+
+            return message;
         }
     }
 }
