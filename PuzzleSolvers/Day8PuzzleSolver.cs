@@ -17,11 +17,13 @@ namespace AOC2016.PuzzleSolvers
 
             foreach  (string inputLine in inputLines)
             {
+                Console.WriteLine();
+                Console.WriteLine($"Executing command: {inputLine}");
+
                 PixelsDisplayCommand command =  commandBuilder.Build(inputLine);
                 display.ExecuteCommand(command);
+                display.Show();
             }
-
-            display.Show();
 
             return display.GetNumLitPixels().ToString();
         }
