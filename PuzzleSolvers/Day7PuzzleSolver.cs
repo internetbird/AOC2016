@@ -39,6 +39,49 @@ namespace AOC2016.PuzzleSolvers
 
         }
 
+        private bool IsSupportsSSL(IPv7 ipAddress)
+        {
+            List<Match> addressPartMatches = GetAllABAMatches(ipAddress.AddressParts);
+            List<Match> hyperNetMatches = GetAllABAMatches(ipAddress.HyperNets);
+
+            foreach (Match addressPartMatch in addressPartMatches)
+            {
+                 if (hyperNetMatches.Any(hyperNetMatch => hyperNetMatch.Groups[1].Value == addressPartMatch.Groups[2].Value
+                        && hyperNetMatch.Groups[2].Value == addressPartMatch.Groups[1].Value))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private List<Match> GetAllABAMatches(List<string> inputs)
+        {
+            string ABAPattern = @"(?<a>\w)(\w)\k<a>";
+
+            var allMatches = new List<Match>();
+
+            foreach (string input in inputs)
+            {
+                for (int i = 0; i < input.Length - 2; i++)
+                {
+                    string subInputString = input.Substring(i);
+
+                    MatchCollection partMatches = Regex.Matches(subInputString, ABAPattern);
+
+                    foreach (Match partMatch in partMatches)
+                    {
+                        if (partMatch.Groups[1].Value != partMatch.Groups[2].Value)
+                        {
+                            allMatches.Add(partMatch);
+                        }
+                    }
+                }
+            }
+
+            return allMatches;
+        }
+
         private bool IsABBA(string input)
         {
             string ABBAPattern = @"(?<a>\w)(\w)\1\k<a>";
@@ -49,7 +92,23 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+             int numOfIPsThatSupportSSL = 0;
+
+            string[] inputLines = InputFilesHelper.GetInputFileLines("day7.txt");
+
+            var builder = new IPv7Builder();
+
+            foreach (string input in inputLines)
+            {
+                IPv7 ipAddress = builder.Build(input);
+
+                if (IsSupportsSSL(ipAddress))
+                {
+                    numOfIPsThatSupportSSL++;
+                }
+            }
+
+            return numOfIPsThatSupportSSL.ToString();
         }
     }
 }
