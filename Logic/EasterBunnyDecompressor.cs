@@ -45,7 +45,7 @@ namespace AOC2016.Logic
                 //If required add the residual non-compressed string
                 int nextSectionIndex = currMatch.Index + currMatch.Length + numOfChars;
 
-                int nextMatchIndex = nextMatch != null ? nextMatch.Index : compressedText.Length - 1;
+                int nextMatchIndex = nextMatch != null ? nextMatch.Index : compressedText.Length;
 
                 if (nextSectionIndex < nextMatchIndex)
                 {
