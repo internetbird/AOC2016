@@ -27,7 +27,18 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            var compressedText = InputFilesHelper.GetInputFileText("day9.txt");
+
+            //Clear compressedText
+            compressedText = Regex.Replace(compressedText, @"\s", string.Empty);
+
+            var decompressor = new EasterBunnyDecompressor();
+            var decompressedText = decompressor.DecompressTextV2(compressedText);
+
+            //Remove spaces
+            decompressedText = decompressedText.Replace(" ", string.Empty);
+
+            return decompressedText.Length.ToString();
         }
     }
 }
