@@ -23,15 +23,18 @@ namespace AOC2016.Logic
                 decompressedTextSb.Append(compressedText.Substring(0, metadataMatches[0].Index));
             }
 
+            int lastScannedIndex = 0;
+
             for (int i = 0; i < metadataMatches.Count; i++)
             {
                 Match currMatch = metadataMatches[i];
-                Match nextMatch = i < metadataMatches.Count - 1 ? metadataMatches[i + 1] : null;
 
-                if (nextMatch != null && currMatch.Index + currMatch.Length == nextMatch.Index) //An empty string section
+                if (currMatch.Index < lastScannedIndex) //Don't include metadatas that were considered as regaulr text
                 {
                     continue;
                 }
+
+                Match nextMatch = i < metadataMatches.Count - 1 ? metadataMatches[i + 1] : null;
 
                 string[] metadataParts = currMatch.Groups["metadata"].Value.Split('x');
                 int numOfChars = int.Parse(metadataParts[0]);
@@ -42,17 +45,28 @@ namespace AOC2016.Logic
 
                 decompressedTextSb.Append(decompressedPart);
 
-                //If required add the residual non-compressed string
-                int nextSectionIndex = currMatch.Index + currMatch.Length + numOfChars;
+               
+                lastScannedIndex = currMatch.Index + currMatch.Length + numOfChars;
 
                 int nextMatchIndex = nextMatch != null ? nextMatch.Index : compressedText.Length;
 
-                if (nextSectionIndex < nextMatchIndex)
+                if (lastScannedIndex < nextMatchIndex)
                 {
-                    string nonCompressedResidual = compressedText.Substring(nextSectionIndex, nextMatchIndex - nextSectionIndex);
+                    string nonCompressedResidual = compressedText.Substring(lastScannedIndex, nextMatchIndex - lastScannedIndex);
                     decompressedTextSb.Append(nonCompressedResidual);
+
+                    lastScannedIndex += (nextMatchIndex - lastScannedIndex);
                 }
             }
+
+            //Add residual at the end in case it was not already added
+            if (lastScannedIndex < compressedText.Length)
+            {
+                string nonCompressedResidual = compressedText.Substring(lastScannedIndex,
+                                                    compressedText.Length - lastScannedIndex);
+                decompressedTextSb.Append(nonCompressedResidual);
+            }
+
             return decompressedTextSb.ToString();
         }
     }

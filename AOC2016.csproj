@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AOC2016.Tests\**" />
+    <EmbeddedResource Remove="AOC2016.Tests\**" />
+    <None Remove="AOC2016.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="InputFiles\day1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
