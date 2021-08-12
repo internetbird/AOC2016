@@ -37,12 +37,48 @@ namespace AOC2016.Logic
                 ExecuteInsturction(instructionToExecute);
                 instructionToExecute = GetNextInstructionToExecute();
             }
-
         }
 
         private void ExecuteInsturction(EasterBunnyComputerInstruction instructionToExecute)
         {
-            throw new NotImplementedException();
+            switch (instructionToExecute.Type)
+            {
+                case EasterBunnyComputerInstructionType.Copy:
+                    int valueToCopy = GetOperandValue(instructionToExecute.Operand1);
+                    _registers[instructionToExecute.Operand2] = valueToCopy;
+                    _currentCommandIndex++;
+                    break;
+                case EasterBunnyComputerInstructionType.Increase:
+                    _registers[instructionToExecute.Operand1]++;
+                    _currentCommandIndex++;
+                    break;
+                case EasterBunnyComputerInstructionType.Decrease:
+                    _registers[instructionToExecute.Operand1]--;
+                    _currentCommandIndex++;
+                    break;
+                case EasterBunnyComputerInstructionType.JumpNotZero:
+                    int value = GetOperandValue(instructionToExecute.Operand1);
+                    if (value != 0)
+                    {
+                        _currentCommandIndex += int.Parse(instructionToExecute.Operand2);
+                    } else
+                    {
+                        _currentCommandIndex++;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private int GetOperandValue(string operand1)
+        {
+            if (_registers.ContainsKey(operand1)) //Check if the operand is a register
+            {
+                return _registers[operand1];
+            }
+            return int.Parse(operand1);
         }
 
         private EasterBunnyComputerInstruction GetNextInstructionToExecute()
