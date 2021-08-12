@@ -24,7 +24,25 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            string[] programLines = InputFilesHelper.GetInputFileLines("day12.txt");
+
+            var initialRegisters = new Dictionary<string, int>
+                        {
+                            {"a", 0 },
+                            {"b", 0 },
+                            {"c", 1 },
+                            {"d", 0 }
+                        };
+
+
+            var computer = new EasterBunnyComputer(initialRegisters);
+            computer.LoadProgram(programLines);
+
+            computer.ExecuteProgram();
+
+            int registerValue = computer.GetRegisterValue("a");
+
+            return registerValue.ToString();
         }
     }
 }

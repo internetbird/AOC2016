@@ -12,15 +12,21 @@ namespace AOC2016.Logic
         private List<EasterBunnyComputerInstruction> _program;
         private int _currentCommandIndex;
 
-        public EasterBunnyComputer()
+        public EasterBunnyComputer(Dictionary<string, int> initialRegisters = null)
         {
-            _registers = new Dictionary<string, int>
+            _registers = initialRegisters;
+
+            if (_registers == null) //Set the default value
             {
-                {"a", 0 },
-                {"b", 0 },
-                {"c", 0 },
-                {"d", 0 }
-            };
+                _registers = new Dictionary<string, int>
+                        {
+                            {"a", 0 },
+                            {"b", 0 },
+                            {"c", 0 },
+                            {"d", 0 }
+                        };
+
+            }
 
             _program = new List<EasterBunnyComputerInstruction>();
             _currentCommandIndex = 0;
@@ -61,7 +67,8 @@ namespace AOC2016.Logic
                     if (value != 0)
                     {
                         _currentCommandIndex += int.Parse(instructionToExecute.Operand2);
-                    } else
+                    }
+                    else
                     {
                         _currentCommandIndex++;
                     }
