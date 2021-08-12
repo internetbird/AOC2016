@@ -7,7 +7,7 @@ namespace AOC2016
     {
         static void Main(string[] args)
         {
-            IPuzzleSolver solver = new Day10PuzzleSolver();
+            IPuzzleSolver solver = new Day12PuzzleSolver();
 
             var solution = solver.SolvePuzzlePart1();
             Console.WriteLine($"The solution to the puzzle is: {solution}");
