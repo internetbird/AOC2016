@@ -20,6 +20,8 @@ namespace AOC2016.Logic.Models
             }
         }
 
+        public int Size => _size;
+
         public CubicalMaze(int favoriteNumber, int mazeSize = 40)
         {
             _maze = new bool[mazeSize, mazeSize];

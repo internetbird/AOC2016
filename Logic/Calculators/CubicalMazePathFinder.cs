@@ -2,49 +2,94 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace AOC2016.Logic.Calculators
 {
     public class CubicalMazePathFinder
     {
-        public int FindMinNumOfStepsForPoints(CubicalMaze maze,
-            int sourceX,
-            int sourceY,
-            int destinationX, int destinationY)
+
+        private CubicalMaze _maze;
+
+        public CubicalMazePathFinder(CubicalMaze maze)
         {
-
+            _maze = maze;
+        }
+       
+        public CubicalMazePathFinderResult FindPath(int sourceX, int sourceY,int destinationX, int destinationY)
+        {
             var path = new CubicalMazePath();
-
-            int numOfSteps = 0;
 
             int currX = sourceX;
             int currY = sourceY;
 
             path.Points.Add(new MazePoint(currX, currY));
 
+            var random = new Random();
+
             while(currX != destinationX || currY != destinationY)
             {
-                if (currY < destinationY && !maze[currX, currY + 1])
-                {
-                    currY++;
-                    path.Points.Add(new MazePoint(currX, currY));
-                    numOfSteps++;
+                List<CubicalMazeMove> validMoves = GetAllValidMoves(currX, currY, path);
 
-                } else if (currX < destinationX && !maze[currX + 1, currY])
+                if (validMoves.Count > 0)
                 {
-                    currX++;
+                    int randomValidMoveIndex = random.Next(0, validMoves.Count);
+                    CubicalMazeMove randomValidMove = validMoves[randomValidMoveIndex];
+
+                    switch (randomValidMove)
+                    {
+                        case CubicalMazeMove.Up:
+                            currY--;
+                            break;
+                        case CubicalMazeMove.Down:
+                            currY++;
+                            break;
+                        case CubicalMazeMove.Left:
+                            currX--;
+                            break;
+                        case CubicalMazeMove.Right:
+                            currX++;
+                            break;
+                        default:
+                            break;
+                    }
+
                     path.Points.Add(new MazePoint(currX, currY));
-                    numOfSteps++;
 
                 } else
                 {
-                    throw new Exception("Couldn't find a solution for this");
+                   return new CubicalMazePathFinderResult { Success = false, Path = path };
                 }
-
-                maze.Show(path);
             }
 
-            return numOfSteps;
+            return new CubicalMazePathFinderResult { Success = true, Path = path };
+        }
+
+        private List<CubicalMazeMove> GetAllValidMoves(int currX, int currY, CubicalMazePath path)
+        {
+            var validMoves = new List<CubicalMazeMove>();
+
+            if (currX < _maze.Size && !_maze[currX + 1, currY] && !path.ContainsPoint(currX+1, currY))
+            {
+                validMoves.Add(CubicalMazeMove.Right);
+            }
+
+            if (currX > 0 && !_maze[currX - 1, currY] && !path.ContainsPoint(currX - 1, currY))
+            {
+                validMoves.Add(CubicalMazeMove.Left);
+            }
+
+            if (currY < _maze.Size && !_maze[currX, currY + 1]  && !path.ContainsPoint(currX, currY + 1))
+            {
+                validMoves.Add(CubicalMazeMove.Down);
+            }
+
+            if (currY > 0 && !_maze[currX, currY - 1] && !path.ContainsPoint(currX, currY - 1))
+            {
+                validMoves.Add(CubicalMazeMove.Up);
+            }
+
+            return validMoves;
         }
     }
 }
