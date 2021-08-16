@@ -22,7 +22,7 @@ namespace AOC2016.Logic.Models
 
         public int Size => _size;
 
-        public CubicalMaze(int favoriteNumber, int mazeSize = 40)
+        public CubicalMaze(int favoriteNumber, int mazeSize = 60)
         {
             _maze = new bool[mazeSize, mazeSize];
             _size = mazeSize;
@@ -33,6 +33,8 @@ namespace AOC2016.Logic.Models
 
         public void Show(CubicalMazePath path = null)
         {
+            Console.ForegroundColor = ConsoleColor.White;
+
             try
             {
                 Console.Clear();

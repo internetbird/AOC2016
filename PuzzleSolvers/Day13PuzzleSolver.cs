@@ -14,26 +14,9 @@ namespace AOC2016.PuzzleSolvers
             var maze = new CubicalMaze(1350);
             var pathFinder = new CubicalMazePathFinder(maze);
 
-            bool pathFound = false;
-
-            while (!pathFound)
-            {
-                CubicalMazePathFinderResult result = pathFinder.FindPath(1, 1, 31, 39);
-                pathFound = result.Success;
-
-                maze.Show(result.Path);
-
-                Thread.Sleep(200);
-
-                if (pathFound)
-                {
-                    Console.WriteLine("Found Path!");
-                    Console.ReadKey();
-
-                    return result.Path.Points.Count.ToString();
-                }
-            }
-            return string.Empty;
+            CubicalMazePathFinderResult result = pathFinder.FindAllPaths(1, 1, 31, 39);
+          
+            return (result.Paths[0].Points.Count -1).ToString();
         }
 
         public string SolvePuzzlePart2()
