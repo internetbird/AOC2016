@@ -12,6 +12,7 @@ namespace AOC2016.PuzzleSolvers
         public string SolvePuzzlePart1()
         {
             var maze = new CubicalMaze(1350);
+          
             var pathFinder = new CubicalMazePathFinder(maze);
 
             CubicalMazePathFinderResult result = pathFinder.FindAllPaths(1, 1, 31, 39);

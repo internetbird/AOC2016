@@ -19,23 +19,23 @@ namespace AOC2016.Logic.Calculators
             _maze = maze;
             _visitedMazePoints = new List<MazePoint>();
         }
-       
-        public CubicalMazePathFinderResult FindAllPaths(int sourceX, int sourceY,int destinationX, int destinationY)
+
+        public CubicalMazePathFinderResult FindAllPaths(int sourceX, int sourceY, int destinationX, int destinationY)
         {
 
             var currentPoint = new MazePoint(sourceX, sourceY);
             _visitedMazePoints.Add(currentPoint);
 
-            var successfulPaths = new List<CubicalMazePath>();
-
             // DrawPoint(currentPoint);
 
-            while (sourceX != destinationX || sourceY != destinationY)
+            if (sourceX != destinationX || sourceY != destinationY)
             {
                 List<CubicalMazeMove> validMoves = GetAllValidMoves(sourceX, sourceY);
 
                 if (validMoves.Any())
                 {
+                    var successfulPaths = new List<CubicalMazePath>();
+
                     foreach (CubicalMazeMove validMove in validMoves)
                     {
                         CubicalMazePathFinderResult subPathResult;
@@ -44,7 +44,7 @@ namespace AOC2016.Logic.Calculators
                         {
                             case CubicalMazeMove.Up:
 
-                               subPathResult = FindAllPaths(sourceX, sourceY - 1, destinationX, destinationY);
+                                subPathResult = FindAllPaths(sourceX, sourceY - 1, destinationX, destinationY);
                                 if (subPathResult.Success)
                                 {
                                     AddSuccessfulPath(currentPoint, successfulPaths, subPathResult);
@@ -52,7 +52,7 @@ namespace AOC2016.Logic.Calculators
 
                                 break;
                             case CubicalMazeMove.Down:
-                               subPathResult = FindAllPaths(sourceX, sourceY + 1, destinationX, destinationY);
+                                subPathResult = FindAllPaths(sourceX, sourceY + 1, destinationX, destinationY);
                                 if (subPathResult.Success)
                                 {
                                     AddSuccessfulPath(currentPoint, successfulPaths, subPathResult);
@@ -77,13 +77,35 @@ namespace AOC2016.Logic.Calculators
                         }
                     }
 
-                } else 
+                    if (successfulPaths.Any())
+                    {
+                        return new CubicalMazePathFinderResult { Success = true, Paths = successfulPaths };
+
+                    }
+                    else
+                    {
+                        return new CubicalMazePathFinderResult { Success = false, Paths = new List<CubicalMazePath>() };
+                    }
+
+                }
+                else
                 {
                     return new CubicalMazePathFinderResult { Success = false, Paths = new List<CubicalMazePath>() };
                 }
             }
-
-            return new CubicalMazePathFinderResult { Success = true, Paths = successfulPaths};
+            else //We got the the destination!
+            {
+                return new CubicalMazePathFinderResult
+                {
+                    Success = true,
+                    Paths = new List<CubicalMazePath>{
+                                new CubicalMazePath{
+                                    Points = new List<MazePoint> {new MazePoint(destinationX, destinationY)
+                                    }
+                                }
+                    }
+                };
+            }
         }
 
         private static void AddSuccessfulPath(MazePoint currentPoint, List<CubicalMazePath> successfulPaths, CubicalMazePathFinderResult subPathResult)
@@ -108,7 +130,7 @@ namespace AOC2016.Logic.Calculators
         {
             var validMoves = new List<CubicalMazeMove>();
 
-            if (currX < _maze.Size && !_maze[currX + 1, currY] && !IsPointVisited(currX+1, currY))
+            if (currX < _maze.Size && !_maze[currX + 1, currY] && !IsPointVisited(currX + 1, currY))
             {
                 validMoves.Add(CubicalMazeMove.Right);
             }
@@ -118,7 +140,7 @@ namespace AOC2016.Logic.Calculators
                 validMoves.Add(CubicalMazeMove.Left);
             }
 
-            if (currY < _maze.Size && !_maze[currX, currY + 1]  && !IsPointVisited(currX, currY + 1))
+            if (currY < _maze.Size && !_maze[currX, currY + 1] && !IsPointVisited(currX, currY + 1))
             {
                 validMoves.Add(CubicalMazeMove.Down);
             }
