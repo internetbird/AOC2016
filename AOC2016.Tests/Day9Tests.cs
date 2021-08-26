@@ -88,9 +88,9 @@ namespace AOC2016.Tests
 
             var decompressor = new EasterBunnyDecompressor();
 
-            string decompressedText = decompressor.DecompressTextV2(input);
+            long decompressedTextLength = decompressor.DecompressTextV2(input);
 
-            Assert.AreEqual(decompressedText, "XYZXYZXYZ");
+            Assert.AreEqual(decompressedTextLength, "XYZXYZXYZ".Length);
         }
 
         [TestMethod]
@@ -100,9 +100,9 @@ namespace AOC2016.Tests
 
             var decompressor = new EasterBunnyDecompressor();
 
-            string decompressedText = decompressor.DecompressTextV2(input);
+            long decompressedTextLength = decompressor.DecompressTextV2(input);
 
-            Assert.AreEqual(decompressedText, "XABCABCABCABCABCABCY");
+            Assert.AreEqual(decompressedTextLength, "XABCABCABCABCABCABCY".Length);
         }
 
         [TestMethod]
@@ -112,9 +112,9 @@ namespace AOC2016.Tests
 
             var decompressor = new EasterBunnyDecompressor();
 
-            string decompressedText = decompressor.DecompressTextV2(input);
+            long decompressedTextLength = decompressor.DecompressTextV2(input);
 
-            Assert.AreEqual(decompressedText, "A".Repeat(241920));
+            Assert.AreEqual(decompressedTextLength, 241920);
         }
 
         [TestMethod]
@@ -124,9 +124,9 @@ namespace AOC2016.Tests
 
             var decompressor = new EasterBunnyDecompressor();
 
-            string decompressedText = decompressor.DecompressTextV2(input);
+            long decompressedTextLength = decompressor.DecompressTextV2(input);
 
-            Assert.AreEqual(decompressedText.Length, 445);
+            Assert.AreEqual(decompressedTextLength, 445);
         }
     }
 }

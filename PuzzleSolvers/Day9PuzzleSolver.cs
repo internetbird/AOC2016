@@ -33,12 +33,10 @@ namespace AOC2016.PuzzleSolvers
             compressedText = Regex.Replace(compressedText, @"\s", string.Empty);
 
             var decompressor = new EasterBunnyDecompressor();
-            var decompressedText = decompressor.DecompressTextV2(compressedText);
+            long decompressedTextLength = decompressor.DecompressTextV2(compressedText);
 
-            //Remove spaces
-            decompressedText = decompressedText.Replace(" ", string.Empty);
-
-            return decompressedText.Length.ToString();
+        
+            return decompressedTextLength.ToString();
         }
     }
 }

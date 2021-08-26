@@ -71,46 +71,31 @@ namespace AOC2016.Logic
         }
 
 
-        public string DecompressTextV2(string compressedText)
+        public long DecompressTextV2(string input)
         {
-            var decompressedTextSb = new StringBuilder();
-            Match firstMatch = Regex.Match(compressedText, @"\((?<metadata>\d+x\d+)\)");
-
-            if (!firstMatch.Success)
+            long length = 0;
+            var toDecompressInput = input.Replace(" ", "");
+            for (int i = 0; i < toDecompressInput.Length; i++)
             {
-                return compressedText;
+                if (toDecompressInput[i] == '(')
+                {
+                    int closingIndex = toDecompressInput.IndexOf(")", i, StringComparison.Ordinal);
+                    string marker = toDecompressInput.Substring(i + 1, closingIndex - i - 1); // skipping ( + )
+                    var markerElements = marker.Split('x');
+                    int chars = int.Parse(markerElements[0]);
+                    int repeats = int.Parse(markerElements[1]);
+
+                    var markedInput = toDecompressInput.Substring(closingIndex + 1, chars);
+                    length += DecompressTextV2(markedInput) * repeats;
+                   
+                    i = closingIndex + chars; // + 1 -> already added by incrementor;
+                }
+                else
+                {
+                    length++;
+                }
             }
-
-            if (firstMatch.Index > 0) //Add the initial uncompressed string
-            {
-                decompressedTextSb.Append(compressedText.Substring(0, firstMatch.Index));
-            }
-
-         
-            string[] metadataParts = firstMatch.Groups["metadata"].Value.Split('x');
-            int numOfChars = int.Parse(metadataParts[0]);
-            int numOfRepeats = int.Parse(metadataParts[1]);
-
-            string stringToRepeat = compressedText.Substring(firstMatch.Index + firstMatch.Length, numOfChars);
-            string decompressedPart = stringToRepeat.Repeat(numOfRepeats);
-
-            decompressedTextSb.Append(decompressedPart);
-
-            decompressedTextSb.Append(DecompressTextV2(compressedText.Substring(firstMatch.Index + firstMatch.Length + numOfChars)));
-
-            //Check if there are any metadata sections left after the last decompression
-            MatchCollection metadataMatches = Regex.Matches(decompressedTextSb.ToString(), @"\((?<metadata>\d+x\d+)\)");
-
-            if (metadataMatches.Count == 0)
-            {
-                return decompressedTextSb.ToString();
-            }
-            else //metadata exists, perform decompression again
-            {
-                Console.WriteLine($"Decompress string length is:{decompressedTextSb.ToString().Length}");
-
-                return DecompressTextV2(decompressedTextSb.ToString());
-            }
+            return length;
 
         }
     }
