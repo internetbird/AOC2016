@@ -7,11 +7,11 @@ namespace AOC2016.Logic.Models
 {
     public class CubicalMazePath
     {
-        public List<MazePoint> Points { get; set; }
+        public List<Point> Points { get; set; }
 
         public CubicalMazePath()
         {
-            Points = new List<MazePoint>();
+            Points = new List<Point>();
         }
 
         public bool ContainsPoint(int x, int y)

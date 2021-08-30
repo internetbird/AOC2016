@@ -4,10 +4,10 @@ using System.Text;
 
 namespace AOC2016.Logic.Models
 {
-    public class MazePoint
+    public class Point
     {
 
-        public MazePoint(int x, int y)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;

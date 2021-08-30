@@ -11,19 +11,19 @@ namespace AOC2016.Logic.Calculators
     {
 
         private CubicalMaze _maze;
-        private List<MazePoint> _visitedMazePoints;
+        private List<Point> _visitedMazePoints;
 
 
         public CubicalMazePathFinder(CubicalMaze maze)
         {
             _maze = maze;
-            _visitedMazePoints = new List<MazePoint>();
+            _visitedMazePoints = new List<Point>();
         }
 
         public CubicalMazePathFinderResult FindAllPaths(int sourceX, int sourceY, int destinationX, int destinationY)
         {
 
-            var currentPoint = new MazePoint(sourceX, sourceY);
+            var currentPoint = new Point(sourceX, sourceY);
             _visitedMazePoints.Add(currentPoint);
 
             // DrawPoint(currentPoint);
@@ -100,7 +100,7 @@ namespace AOC2016.Logic.Calculators
                     Success = true,
                     Paths = new List<CubicalMazePath>{
                                 new CubicalMazePath{
-                                    Points = new List<MazePoint> {new MazePoint(destinationX, destinationY)
+                                    Points = new List<Point> {new Point(destinationX, destinationY)
                                     }
                                 }
                     }
@@ -108,18 +108,18 @@ namespace AOC2016.Logic.Calculators
             }
         }
 
-        private static void AddSuccessfulPath(MazePoint currentPoint, List<CubicalMazePath> successfulPaths, CubicalMazePathFinderResult subPathResult)
+        private static void AddSuccessfulPath(Point currentPoint, List<CubicalMazePath> successfulPaths, CubicalMazePathFinderResult subPathResult)
         {
             foreach (var successfulSubPath in subPathResult.Paths)
             {
 
-                var successFullPathPoints = new List<MazePoint> { currentPoint };
+                var successFullPathPoints = new List<Point> { currentPoint };
                 successFullPathPoints.AddRange(successfulSubPath.Points);
                 successfulPaths.Add(new CubicalMazePath { Points = successFullPathPoints });
             }
         }
 
-        private void DrawPoint(MazePoint currentPoint)
+        private void DrawPoint(Point currentPoint)
         {
             Console.SetCursorPosition(currentPoint.X, currentPoint.Y);
             Console.ForegroundColor = ConsoleColor.Green;
