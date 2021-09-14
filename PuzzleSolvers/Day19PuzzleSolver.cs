@@ -62,7 +62,48 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            var elves = Enumerable.Range(1, INPUT).Select(id => new Elf(id)).ToList();
+            var left = new LinkedList<Elf>();
+            var right = new LinkedList<Elf>();
+
+            int half = elves.Count / 2;
+            for (int i = 0; i < elves.Count; i++)
+            {
+                if (i < half)
+                    left.AddLast(elves[i]);
+                else
+                    right.AddLast(elves[i]);
+            }
+
+            while (left.Count + right.Count != 1)
+            {
+                Elf e = left.First.Value;
+                left.Remove(e);
+                if (left.Count == right.Count)
+                    left.RemoveLast();
+                else
+                    right.RemoveFirst();
+                right.AddLast(e);
+                e = right.First.Value;
+                right.Remove(e);
+                left.AddLast(e);
+            }
+
+            return left.First.Value.Id.ToString();
+        }
+
+
+        internal sealed class Elf
+        {
+            public int Id { get; }
+
+            public int Presents { get; set; }
+
+            public Elf(int id)
+            {
+                Presents = 1;
+                Id = id;
+            }
         }
     }
 }
