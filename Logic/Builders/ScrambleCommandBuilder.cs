@@ -36,7 +36,8 @@ namespace AOC2016.Logic.Builders
 
                 command = new SwapLetterCommand(parameters);
 
-            } else if (commandText.StartsWith("rotate right") || commandText.StartsWith("rotate left"))
+            }
+            else if (commandText.StartsWith("rotate right") || commandText.StartsWith("rotate left"))
             /* rotate right/left x steps */
             {
                 var parameters = new object[]
@@ -46,6 +47,36 @@ namespace AOC2016.Logic.Builders
                 };
 
                 command = new RotateCommand(parameters);
+            }
+            else if (commandText.StartsWith("rotate based")) /* rotate based on position of letter x */
+            {
+                var parameters = new object[]
+                {
+                    commandParts[6][0]
+                };
+
+                command = new RotateBasedPositionCommand(parameters);
+            }
+            else if (commandText.StartsWith("reverse")) /*reverse positions x through y*/
+            {
+                var parameters = new object[]
+                {
+                  int.Parse(commandParts[2]),
+                  int.Parse(commandParts[4])
+                };
+
+                command = new ReversePositionCommand(parameters);
+
+            }
+            else /* move position x to position y */
+            {
+                var parameters = new object[]
+                {
+                     int.Parse(commandParts[2]),
+                     int.Parse(commandParts[5])
+                };
+
+                command = new MovePositionCommand(parameters);
             }
 
             return command;

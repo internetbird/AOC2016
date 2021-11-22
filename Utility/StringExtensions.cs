@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AOC2016.Utility
@@ -39,6 +40,35 @@ namespace AOC2016.Utility
             string firstPart =  input.Substring(shiftAmount, input.Length - shiftAmount);
            string secondPart = input.Substring(0, shiftAmount);
            return firstPart + secondPart;
+        }
+
+        
+        public static string ReversePart(this string input, int startIndex, int endIndex) 
+        {
+            string reversedPart = input.Substring(startIndex, endIndex - startIndex + 1);
+
+            reversedPart = new string(reversedPart.ToCharArray().Reverse().ToArray());
+
+            string prefix = input.Substring(0, startIndex);
+            string suffix = string.Empty;
+
+            if (endIndex < input.Length - 1)
+            {
+                suffix = input.Substring(endIndex + 1);
+            }
+
+            return $"{prefix}{reversedPart}{suffix}";
+        }
+
+        public static string ChangeIndex(this string input, int fromIndex, int toIndex)
+        {
+            char[] charArray = input.ToCharArray();
+            char charToMove = charArray[fromIndex];
+
+            string result =  input.Remove(fromIndex, 1);
+            result = result.Insert(toIndex, charToMove.ToString());
+
+            return result;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace AOC2016.Tests
         [TestMethod]
         public void TestRotateCommand2()
         {
-            var command = new RotateCommand(new object[] { "right", 1});
+            var command = new RotateCommand(new object[] { "right", 1 });
 
             string input = "abcde";
             string output = command.Execute(input);
@@ -58,7 +58,7 @@ namespace AOC2016.Tests
         [TestMethod]
         public void TestRotateCommand3()
         {
-            var command = new RotateCommand(new object[] { "left", 6});
+            var command = new RotateCommand(new object[] { "left", 6 });
 
             string input = "abcde";
             string output = command.Execute(input);
@@ -75,6 +75,69 @@ namespace AOC2016.Tests
             string output = command.Execute(input);
 
             Assert.AreEqual("cdeab", output);
+        }
+        [TestMethod]
+        public void TestRotateBasedPositionCommand1()
+        {
+            var command = new RotateBasedPositionCommand(new object[] { 'b' });
+
+            string input = "abdec";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("ecabd", output);
+
+        }
+
+        [TestMethod]
+        public void TestRotateBasedPositionCommand2()
+        {
+            var command = new RotateBasedPositionCommand(new object[] { 'd' });
+
+            string input = "ecabd";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("decab", output);
+        }
+
+        [TestMethod]
+        public void TestReversePositionCommand1()
+        {
+            var command = new ReversePositionCommand(new object[] { 0, 4 });
+            string input = "edcba";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("abcde", output);
+        }
+
+        [TestMethod]
+        public void TestReversePositionCommand2()
+        {
+            var command = new ReversePositionCommand(new object[] { 2, 5 });
+            string input = "abcdefghi";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("abfedcghi", output);
+        }
+
+        [TestMethod]
+        public void TestMovePositionCommand1()
+        {
+            var command = new MovePositionCommand(new object[] { 1, 4 });
+            string input = "bcdea";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("bdeac", output);
+
+        }
+
+        [TestMethod]
+        public void TestMovePositionCommand2()
+        {
+            var command = new MovePositionCommand(new object[] { 3, 0 });
+            string input = "bdeac";
+            string output = command.Execute(input);
+
+            Assert.AreEqual("abdec", output);
         }
     }
 }
