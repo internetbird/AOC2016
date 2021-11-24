@@ -25,5 +25,20 @@ namespace AOC2016.Logic.Models.ScrambleCommands
             }
             return result;
         }
+
+        public override string Undo(string input)
+        {
+            string result = input;
+
+            if ((string)_parameters[0] == "right")
+            {
+                result = input.ShiftLeft((int)_parameters[1]);
+            }
+            else
+            {
+                result = input.ShiftRight((int)_parameters[1]);
+            }
+            return result;
+        }
     }
 }

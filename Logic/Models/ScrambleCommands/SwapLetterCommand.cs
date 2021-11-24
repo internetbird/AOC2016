@@ -12,7 +12,10 @@ namespace AOC2016.Logic.Models.ScrambleCommands
         {
         }
 
-        public override string Execute(string input)
+        public override string Execute(string input) => SwapLetters(input);
+        public override string Undo(string input) => SwapLetters(input);
+    
+        private string SwapLetters(string input)
         {
             char firstLetter = (char)_parameters[0];
             char secondLetter = (char)_parameters[1];

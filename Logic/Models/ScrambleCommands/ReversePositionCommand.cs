@@ -17,5 +17,11 @@ namespace AOC2016.Logic.Models.ScrambleCommands
             string result = input.ReversePart((int)_parameters[0], (int)_parameters[1]);
             return result;
         }
+
+        public override string Undo(string input)
+        {
+            string result = input.ReversePart((int)_parameters[0], (int)_parameters[1]);
+            return result;
+        }
     }
 }

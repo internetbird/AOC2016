@@ -7,5 +7,6 @@ namespace AOC2016.Logic.Models.ScrambleCommands
     public interface IScrambleCommand
     {
         public string Execute(string input);
+        public string Undo(string input);
     }
 }

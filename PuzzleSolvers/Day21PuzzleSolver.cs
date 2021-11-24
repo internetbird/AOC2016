@@ -34,7 +34,25 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            string[] inputLines = InputFilesHelper.GetInputFileLines("day21.txt");
+
+            var scrambleCommands = new List<IScrambleCommand>();
+
+            var commandBuilder = new ScrambleCommandBuilder();
+            //Add the input lines from end to start
+            for (int i = inputLines.Length - 1; i >= 0; i--)
+            {
+                IScrambleCommand command = commandBuilder.BuildCommand(inputLines[i]);
+                scrambleCommands.Add(command);
+            }
+
+            string hash = "fbgdceah";
+            foreach (IScrambleCommand command in scrambleCommands)
+            {
+                hash = command.Undo(hash);
+            }
+
+            return hash;
         }
     }
 }

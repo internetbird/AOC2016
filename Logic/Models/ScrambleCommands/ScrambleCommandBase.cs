@@ -14,5 +14,6 @@ namespace AOC2016.Logic.Models.ScrambleCommands
         }
 
         public abstract string Execute(string input);
+        public abstract string Undo(string input);
     }
 }
