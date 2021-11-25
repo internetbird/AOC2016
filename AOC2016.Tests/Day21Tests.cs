@@ -139,24 +139,5 @@ namespace AOC2016.Tests
 
             Assert.AreEqual("abdec", output);
         }
-
-        [TestMethod]
-        public void TestUndoRotateBasedPositionCommand1()
-        {
-            var command = new RotateBasedPositionCommand(new object[] { 'b' });
-
-            string input = "abdec";
-            string output = command.Execute(input); /* ecabd */
-            output = command.Undo(output);
-
-            Assert.AreEqual("abdec", output);
-        }
-
-        [TestMethod]
-        public void TestUndoRotateBasedPositionCommand2()
-        {
-           
-
-        }
     }
 }
