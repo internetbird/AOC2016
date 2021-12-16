@@ -1,4 +1,5 @@
-﻿using AOC2016.Logic.Builders;
+﻿using AOC;
+using AOC2016.Logic.Builders;
 using AOC2016.Logic.Calculators;
 using AOC2016.Logic.Models;
 using System;
@@ -23,7 +24,12 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            var builder = new StorageNodeBuilder();
+
+            List<StorageNode> storageNodes = builder.Build("day22.txt");
+
+
+            return String.Empty;
         }
     }
 }

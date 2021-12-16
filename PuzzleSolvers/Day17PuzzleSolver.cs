@@ -1,4 +1,5 @@
-﻿using AOC2016.Logic.Models;
+﻿using AOC;
+using AOC2016.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

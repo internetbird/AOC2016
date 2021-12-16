@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2016", "AOC2016.csproj", "{CA8E1ECD-E362-4788-8324-581F5535D2CA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AOC2016.Tests", "AOC2016.Tests\AOC2016.Tests.csproj", "{3F8DAD5B-78F2-4FC6-8E55-0EC7504DDDC1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdLib", "..\..\..\..\Github\BirdLib\BirdLib\BirdLib.csproj", "{F0BDABFE-F3BF-4E21-9CFB-4F562C43284E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{3F8DAD5B-78F2-4FC6-8E55-0EC7504DDDC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F8DAD5B-78F2-4FC6-8E55-0EC7504DDDC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F8DAD5B-78F2-4FC6-8E55-0EC7504DDDC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0BDABFE-F3BF-4E21-9CFB-4F562C43284E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0BDABFE-F3BF-4E21-9CFB-4F562C43284E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0BDABFE-F3BF-4E21-9CFB-4F562C43284E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0BDABFE-F3BF-4E21-9CFB-4F562C43284E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

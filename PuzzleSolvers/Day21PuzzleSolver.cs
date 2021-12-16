@@ -1,4 +1,5 @@
-﻿using AOC2016.Logic.Builders;
+﻿using AOC;
+using AOC2016.Logic.Builders;
 using AOC2016.Logic.Calculators;
 using AOC2016.Logic.Models;
 using AOC2016.Logic.Models.ScrambleCommands;

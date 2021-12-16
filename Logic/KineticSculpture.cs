@@ -8,8 +8,7 @@ namespace AOC2016.Logic
     {
 
         private int _time;
-        private int _currCapsulePosition;
-
+   
         private readonly KineticSculptureDisc[] _discs;
 
         public KineticSculpture(KineticSculptureDisc[] discs = null)
@@ -40,7 +39,6 @@ namespace AOC2016.Logic
         /// <returns>True is the capsule fall through, false otherwise</returns>
         public bool StartSimulation(int timeToPressButton)
         {
-            _currCapsulePosition = 0;
             _time = timeToPressButton + 1;// One second to reach the first disc
 
             for (int i = 0; i < _discs.Length; i++)
