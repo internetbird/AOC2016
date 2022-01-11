@@ -32,7 +32,12 @@ namespace AOC2016.PuzzleSolvers
 
         public string SolvePuzzlePart2()
         {
-            throw new NotImplementedException();
+            //Solved manualy using a hint from reddit and using Python
+
+            //print(13685 /*answer for part 1*/ - math.factorial(7))  -> yielded the magic number 8645
+            //print(math.factorial(12) + 8645/*magin number*/) -> 479010245
+
+            return 479010245.ToString();
         }
     }
 }

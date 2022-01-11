@@ -3,6 +3,7 @@ using AOC2016.Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace AOC2016.Logic
 {
@@ -39,7 +40,7 @@ namespace AOC2016.Logic
             EasterBunnyComputerInstruction instructionToExecute = GetNextInstructionToExecute();
 
             while (instructionToExecute != null)
-            {
+            {            
                 ExecuteInsturction(instructionToExecute);
                 instructionToExecute = GetNextInstructionToExecute();
             }
@@ -99,6 +100,35 @@ namespace AOC2016.Logic
                 default:
                     break;
             }
+        }
+
+        private void PrintProgram()
+        {
+            Console.SetCursorPosition(0, 0);
+
+            Console.WriteLine("********PROGRAM*******");
+
+            for (int i = 0; i < _program.Count ; i++)
+            {
+                if (i== _currentCommandIndex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                } else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+
+                Console.WriteLine($"{_program[i].Type} {_program[i].Operand1} {_program[i].Operand2 ?? string.Empty}");
+            }
+            Console.WriteLine("*********************");
+
+            Console.WriteLine("------REGISTERS------");
+            foreach (KeyValuePair<string, int> kvp in _registers)
+            {
+                Console.WriteLine($"[{kvp.Key}]  = {kvp.Value}");
+
+            }
+            Console.WriteLine("---------------------");
         }
 
         private void ToggleInstruction(EasterBunnyComputerInstruction instructionToToggle)
