@@ -28,6 +28,9 @@ namespace AOC2016.Logic.Builders
                 case "jnz":
                     type = EasterBunnyComputerInstructionType.JumpNotZero;
                     break;
+                case "tgl":
+                    type = EasterBunnyComputerInstructionType.Toggle;
+                    break;
             }
             string operand1 = instructionParts[1];
             string operand2 = null;

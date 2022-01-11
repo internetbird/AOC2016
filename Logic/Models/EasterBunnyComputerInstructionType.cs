@@ -6,6 +6,7 @@
         Copy,
         Increase,
         Decrease,
-        JumpNotZero
+        JumpNotZero,
+        Toggle
     }
 }

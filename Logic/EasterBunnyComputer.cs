@@ -51,22 +51,32 @@ namespace AOC2016.Logic
             {
                 case EasterBunnyComputerInstructionType.Copy:
                     int valueToCopy = GetOperandValue(instructionToExecute.Operand1);
-                    _registers[instructionToExecute.Operand2] = valueToCopy;
+                    if (_registers.ContainsKey(instructionToExecute.Operand2))
+                    {
+                        _registers[instructionToExecute.Operand2] = valueToCopy;
+                    }
                     _currentCommandIndex++;
                     break;
                 case EasterBunnyComputerInstructionType.Increase:
-                    _registers[instructionToExecute.Operand1]++;
+                    if (_registers.ContainsKey(instructionToExecute.Operand1))
+                    {
+                        _registers[instructionToExecute.Operand1]++;
+                    }
                     _currentCommandIndex++;
                     break;
                 case EasterBunnyComputerInstructionType.Decrease:
-                    _registers[instructionToExecute.Operand1]--;
+                    if (_registers.ContainsKey(instructionToExecute.Operand1))
+                    {
+                        _registers[instructionToExecute.Operand1]--;
+                    }
                     _currentCommandIndex++;
                     break;
                 case EasterBunnyComputerInstructionType.JumpNotZero:
                     int value = GetOperandValue(instructionToExecute.Operand1);
                     if (value != 0)
                     {
-                        _currentCommandIndex += int.Parse(instructionToExecute.Operand2);
+                        int jumpValue = GetOperandValue(instructionToExecute.Operand2);
+                        _currentCommandIndex += jumpValue;
                     }
                     else
                     {
@@ -74,18 +84,55 @@ namespace AOC2016.Logic
                     }
 
                     break;
+                case EasterBunnyComputerInstructionType.Toggle:
+                    int instructionsAway = GetOperandValue(instructionToExecute.Operand1);
+                    int instructionToToggleIndex = _currentCommandIndex + instructionsAway;
+                    if (instructionToToggleIndex < _program.Count)
+                    {
+                       EasterBunnyComputerInstruction instructionToToggle =  _program[instructionToToggleIndex];
+                       ToggleInstruction(instructionToToggle);
+                    }
+
+                    _currentCommandIndex++;
+
+                    break;
                 default:
                     break;
             }
         }
 
-        private int GetOperandValue(string operand1)
+        private void ToggleInstruction(EasterBunnyComputerInstruction instructionToToggle)
         {
-            if (_registers.ContainsKey(operand1)) //Check if the operand is a register
+            if (instructionToToggle.Operand2 == null) //One argument instruction
             {
-                return _registers[operand1];
+                if (instructionToToggle.Type == EasterBunnyComputerInstructionType.Increase)
+                {
+                    instructionToToggle.Type = EasterBunnyComputerInstructionType.Decrease;
+                } else
+                {
+                    instructionToToggle.Type = EasterBunnyComputerInstructionType.Increase;
+                }
             }
-            return int.Parse(operand1);
+            else  //Two arguments instruction
+            {
+                if (instructionToToggle.Type == EasterBunnyComputerInstructionType.JumpNotZero)
+                {
+                    instructionToToggle.Type = EasterBunnyComputerInstructionType.Copy;
+                } else
+                {
+                    instructionToToggle.Type = EasterBunnyComputerInstructionType.JumpNotZero;
+                }
+            }
+
+        }
+
+        private int GetOperandValue(string operandStr)
+        {
+            if (_registers.ContainsKey(operandStr)) //Check if the operand is a register
+            {
+                return _registers[operandStr];
+            }
+            return int.Parse(operandStr);
         }
 
         private EasterBunnyComputerInstruction GetNextInstructionToExecute()

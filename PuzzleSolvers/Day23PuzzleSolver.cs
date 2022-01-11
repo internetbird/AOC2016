@@ -12,10 +12,21 @@ namespace AOC2016.PuzzleSolvers
         {
             string[] programLines = InputFilesHelper.GetInputFileLines("day23.txt");
 
-            var computer = new EasterBunnyComputer();
+            var initialRegisters = new Dictionary<string, int>
+                        {
+                            {"a", 7 },
+                            {"b", 0 },
+                            {"c", 0 },
+                            {"d", 0 }
+                        };
 
+            var computer = new EasterBunnyComputer(initialRegisters);
+            
+            computer.LoadProgram(programLines);
+            computer.ExecuteProgram();
+            int registerValue = computer.GetRegisterValue("a");
 
-            return string.Empty;
+            return registerValue.ToString();
 
         }
 
