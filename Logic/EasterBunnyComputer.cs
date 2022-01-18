@@ -35,19 +35,34 @@ namespace AOC2016.Logic
 
         public int GetRegisterValue(string registerName) => _registers[registerName];
 
-        public void ExecuteProgram()
+        public string ExecuteProgram(int? maxOutputLength = null)
         {
+            var outputStr = string.Empty;
+            int instructionCounter = 0;
+
             EasterBunnyComputerInstruction instructionToExecute = GetNextInstructionToExecute();
 
-            while (instructionToExecute != null)
+            while (instructionToExecute != null 
+                && (maxOutputLength is null || outputStr.Length < maxOutputLength))
             {            
-                ExecuteInsturction(instructionToExecute);
+                string instuctionOutput =  ExecuteInsturction(instructionToExecute);
+                
+                if (instuctionOutput != null)
+                {
+                    outputStr += instuctionOutput;
+                }
+
                 instructionToExecute = GetNextInstructionToExecute();
+                instructionCounter++;
             }
+
+            return outputStr;
         }
 
-        private void ExecuteInsturction(EasterBunnyComputerInstruction instructionToExecute)
+        private string ExecuteInsturction(EasterBunnyComputerInstruction instructionToExecute)
         {
+            string instructionOutput = null;
+
             switch (instructionToExecute.Type)
             {
                 case EasterBunnyComputerInstructionType.Copy:
@@ -97,9 +112,15 @@ namespace AOC2016.Logic
                     _currentCommandIndex++;
 
                     break;
+                case EasterBunnyComputerInstructionType.Out:
+                    int outputValue = GetOperandValue(instructionToExecute.Operand1);
+                    instructionOutput = outputValue.ToString();
+                    break;
                 default:
                     break;
             }
+
+            return instructionOutput;
         }
 
         private void PrintProgram()

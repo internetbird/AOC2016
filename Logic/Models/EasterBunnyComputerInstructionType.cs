@@ -7,6 +7,7 @@
         Increase,
         Decrease,
         JumpNotZero,
-        Toggle
+        Toggle,
+        Out
     }
 }

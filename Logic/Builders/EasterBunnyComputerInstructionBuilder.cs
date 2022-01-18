@@ -31,6 +31,9 @@ namespace AOC2016.Logic.Builders
                 case "tgl":
                     type = EasterBunnyComputerInstructionType.Toggle;
                     break;
+                case "out":
+                    type = EasterBunnyComputerInstructionType.Out;
+                    break;
             }
             string operand1 = instructionParts[1];
             string operand2 = null;
