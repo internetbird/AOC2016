@@ -12,6 +12,44 @@ namespace AOC2016.PuzzleSolvers
     {
         public string SolvePuzzlePart1()
         {
+            int minDistance = Solve(false);
+
+            return minDistance.ToString();
+        }
+
+        private int CalculateTotalDistance(int[] route, Dictionary<Tuple<int, int>, int> distancesDictionary)
+        {
+            var totalDistance = 0;
+
+            for (int i = 0; i < route.Length - 1; i++)
+            {
+                totalDistance += GetDistanceBetweenPoints(route[i], route[i + 1], distancesDictionary);
+            }
+
+            return totalDistance;
+        }
+
+        private int GetDistanceBetweenPoints(int point1Index, int point2Index, Dictionary<Tuple<int, int>, int> distancesDictionary)
+        {
+            if (distancesDictionary.ContainsKey(Tuple.Create(point1Index, point2Index)))
+            {
+                return distancesDictionary[Tuple.Create(point1Index, point2Index)];
+            }
+            else
+            {
+                return distancesDictionary[Tuple.Create(point2Index, point1Index)];
+            }
+        }
+
+        public string SolvePuzzlePart2()
+        {
+            int minDistance = Solve(true);
+            return minDistance.ToString();
+        }
+
+
+        private int Solve(bool returnToOrigin)
+        {
             string[] inputLines = InputFilesHelper.GetInputFileLines("day24.txt");
             var map = new Map(inputLines);
             var permutationGenerator = new PermutationGenerator();
@@ -34,43 +72,21 @@ namespace AOC2016.PuzzleSolvers
 
             foreach (int[] route in routes)
             {
-                int totalDistance = CalculateTotalDistance(route.PrependItem(0), distancesDictionary);
+                int[] fullRoute = route.PrependItem(0);
+
+                if (returnToOrigin)
+                {
+                    fullRoute = fullRoute.AppendItem(0);
+                }
+
+                int totalDistance = CalculateTotalDistance(fullRoute, distancesDictionary);
                 if (totalDistance < minDistance)
                 {
                     minDistance = totalDistance;
                 }
-
             }
 
-            return minDistance.ToString();
-        }
-
-        private int CalculateTotalDistance(int[] route, Dictionary<Tuple<int, int>, int> distancesDictionary)
-        {
-            var totalDistance = 0;
-            
-            for (int i = 0; i < route.Length - 1; i++)
-            {
-                totalDistance += GetDistanceBetweenPoints(route[i], route[i + 1], distancesDictionary);
-            }
-
-            return totalDistance;
-        }
-
-        private int GetDistanceBetweenPoints(int point1Index, int point2Index, Dictionary<Tuple<int, int>, int> distancesDictionary)
-        {
-            if (distancesDictionary.ContainsKey(Tuple.Create(point1Index, point2Index)))
-            {
-                return distancesDictionary[Tuple.Create(point1Index, point2Index)];
-            } else
-            {
-                return distancesDictionary[Tuple.Create(point2Index, point1Index)];
-            }
-        }
-
-        public string SolvePuzzlePart2()
-        {
-            throw new NotImplementedException();
+            return minDistance;
         }
     }
 }
