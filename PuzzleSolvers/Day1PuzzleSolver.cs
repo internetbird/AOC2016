@@ -2,7 +2,7 @@
 using AOC2016.Logic;
 using AOC2016.Logic.Builders;
 using AOC2016.Models;
-using AOC2016.Utility;
+
 using System;
 using System.Collections.Generic;
 using System.Text;

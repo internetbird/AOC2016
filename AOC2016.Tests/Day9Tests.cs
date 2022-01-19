@@ -1,5 +1,4 @@
 using AOC2016.Logic;
-using AOC2016.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AOC2016.Tests

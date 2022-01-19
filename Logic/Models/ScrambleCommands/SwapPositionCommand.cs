@@ -1,5 +1,4 @@
-﻿using AOC2016.Utility;
-using BirdLib;
+﻿using BirdLib;
 using System;
 using System.Collections.Generic;
 using System.Text;

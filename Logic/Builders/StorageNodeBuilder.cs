@@ -1,6 +1,5 @@
 ﻿using AOC;
 using AOC2016.Logic.Models;
-using AOC2016.Utility;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

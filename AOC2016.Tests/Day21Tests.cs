@@ -1,6 +1,6 @@
 ﻿using AOC2016.Logic.Calculators;
 using AOC2016.Logic.Models.ScrambleCommands;
-using AOC2016.Utility;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
